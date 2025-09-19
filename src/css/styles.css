@@ -161,7 +161,7 @@
   display: block;
 }
 
-.loader.loader.is-open::after {
+.loader.is-open::after {
   content: '';
   box-sizing: border-box;
   position: absolute;
