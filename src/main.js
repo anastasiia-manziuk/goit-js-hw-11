@@ -2,28 +2,26 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-import * as pixabay from "./js/pixabay-api"
-import * as renderFunc from "./js/render-functions"
+import { getImagesByQuery } from "./js/pixabay-api";
+import { createGallery, clearGallery, showLoader, hideLoader } from "./js/render-functions";
 
-const button = document.querySelector('.butn')
 const input = document.querySelector('.search-input')
 const form = document.querySelector('.form')
 
 function searchImages() {
     const query = input.value.trim();
 
-    if (!query) {
-        input.reportValidity();
-        return;
+    if (!query.length) {
+        return
     }
 
-    renderFunc.clearGallery();
+    clearGallery()
     
     
-    renderFunc.showLoader();
+    showLoader()
     
 
-    setTimeout(()=>{pixabay.getImagesByQuery(query)
+    getImagesByQuery(query)
         
         .then(images => {
             
@@ -34,21 +32,18 @@ function searchImages() {
                 });
                 
             } else {
-                renderFunc.createGallery(images);
+                createGallery(images);
             }
         })
 
         .catch(err => {
             console.error(err)
-        })
+    })
         
         .finally(() => {
-            renderFunc.hideLoader();
-        });
-},3000)
-
+            hideLoader();
+            form.reset();
+        })
 }
-
 form.addEventListener('submit', searchImages);
-
 
