@@ -8,7 +8,8 @@ import { createGallery, clearGallery, showLoader, hideLoader } from "./js/render
 const input = document.querySelector('.search-input')
 const form = document.querySelector('.form')
 
-function searchImages() {
+function searchImages(event) {
+    event.preventDefault();
     const query = input.value.trim();
 
     if (!query.length) {
